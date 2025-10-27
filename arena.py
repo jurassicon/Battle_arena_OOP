@@ -198,6 +198,7 @@ def main():
 
             defender = fighters.pop(index2 if index2 < index1 else index2 - 1)
             print('__NEW fight is begin!__')
+            print(f'Attacker: {attacker} \nDefender: {defender}')
             attacker.crit_chance()
             defender.crit_chance()
             hits = 0

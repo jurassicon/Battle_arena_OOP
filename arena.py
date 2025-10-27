@@ -66,7 +66,7 @@ class Person:
     def critical_hit(self):
         self.base_attack = self.base_attack * 3
         print(f'💥 💥 💥 {self.name} is activate a critical hit!💥 💥 💥 ')
-        print(f'Attack is 3X -- {self.base_attack}')
+        print(f'Attack is 3X -- {self.base_attack} and HP is - {self.hp}')
 
     def set_things(self, things: list):
         self.things = things

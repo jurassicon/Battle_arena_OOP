@@ -212,7 +212,6 @@ def main():
                 print('Now Defender is attacking the attacker!')
                 defender_dem = damage(defender.weapons, defender)
                 attacker_protection = protection(attacker.weapons, attacker)
-                attacker.hp -= (defender_dem - attacker_protection)
                 hit = max(0, defender_dem - attacker_protection)
                 attacker.hp -= hit
                 if attacker.hp <= 0:

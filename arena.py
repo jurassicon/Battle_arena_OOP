@@ -30,6 +30,9 @@ WEAPONS = [
     'Spade', 'Axe', 'Mace', 'Blowfish', 'Stick', 'Ring', 'Underpants'
 ]
 
+# Скорость боя
+BATTLE_SPEED = 0.2
+
 
 class Weapon:
     name: str
@@ -101,6 +104,13 @@ class Warrior(Person):
 
 
 def damage(weapon, attacker):
+    """
+    Calculate the total damage dealt by an attacker using a selected weapon.
+
+    The function selects a random weapon from the given list, calculates the
+    damage by adding the weapon's damage to the base attack of the attacker,
+    and returns the computed damage value.
+    """
     selected_weapon = random.choice(weapon)
     weapon_damage = selected_weapon.damage
     print(
@@ -111,6 +121,10 @@ def damage(weapon, attacker):
 
 
 def protection(weapon, defender):
+    """
+    Calculates the total protection value for a defender based on their base
+    protection and the protection value of a randomly chosen weapon.
+    """
     selected_weapon = random.choice(weapon)
     print(f'Defender: {defender} choose for protection - {selected_weapon}')
     def_protection = defender.base_protection + selected_weapon.protection
@@ -143,10 +157,10 @@ def generate_person():
 
 
 def dress_up_warrior():
-    people = generate_person()
-    print(f"[dress_up_warrior] Сгенерировано персонажей: {len(people)}")
+    warriors = generate_person()
+    print(f"[dress_up_warrior] Сгенерировано персонажей: {len(warriors)}")
 
-    for idx, person in enumerate(people, 1):
+    for idx, person in enumerate(warriors, 1):
         count = random.randint(1, 4)
         all_items = generate_weapons()
         items = random.sample(all_items, count)
@@ -159,7 +173,7 @@ def dress_up_warrior():
         # print(f"— полученные вещи: {[weapon.name for weapon in items]}")
         # print(f"— детали вещей: {items!r}")
 
-    return people
+    return warriors
 
 
 def main():
@@ -183,7 +197,6 @@ def main():
             attacker = fighters.pop(index1)
 
             defender = fighters.pop(index2 if index2 < index1 else index2 - 1)
-            print('\n')
             print('__NEW fight is begin!__')
             attacker.crit_chance()
             defender.crit_chance()
@@ -208,15 +221,15 @@ def main():
                         f'HP - {round(defender.hp, 1)}'
                     )
 
-                sleep(0.1)
-                print('Now Defender is attacking the attacker!')
+                sleep(BATTLE_SPEED)
                 defender_dem = damage(defender.weapons, defender)
                 attacker_protection = protection(attacker.weapons, attacker)
                 hit = max(0, defender_dem - attacker_protection)
+                print('Now Defender is attacking the attacker! \n')
                 attacker.hp -= hit
                 if attacker.hp <= 0:
                     print(
-                        f'Defender {defender.name} is win! {attacker.name} '
+                        f'Defender {defender.name} is win! {attacker.name} \n'
                         f'is dead from {hits} hits.'
                     )
                     winners.append(defender)
